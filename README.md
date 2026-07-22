@@ -1,6 +1,6 @@
 # Zutat Sans
 
-<img src="documentation/posters/ZutatSans-Poster-Editorial.png" alt="Zutat Sans specimen poster" width="100%">
+<img src="documentation/posters/ZutatSans-Poster-Glyph-Field.png" alt="Zutat Sans specimen poster" width="100%">
 
 Zutat Sans is a contemporary sans-serif shaped by quiet authority, editorial
 precision, and restrained character. It is designed for product interfaces,
