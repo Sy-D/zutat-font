@@ -1,0 +1,4 @@
+Simon Doba — Zutat Sans custom design and direction
+OpenAI — assisted build, validation, and production tooling
+
+Upstream Geist authors are credited in CONTRIBUTORS.txt and NOTICE.md.

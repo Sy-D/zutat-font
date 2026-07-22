@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>Zutat Sans · Small UI QA</title>
+    <style>
+      @font-face {
+        font-family: "Zutat Sans QA";
+        src: url("/build/zutat-font-v0.6/ZutatSans-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Zutat Sans QA";
+        src: url("/build/zutat-font-v0.6/ZutatSans-Medium.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Zutat Sans QA";
+        src: url("/build/zutat-font-v0.6/ZutatSans-SemiBold.woff2") format("woff2");
+        font-weight: 600;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Zutat Sans QA";
+        src: url("/build/zutat-font-v0.6/ZutatSans-Bold.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Zutat Sans Latin QA";
+        src: url("/build/zutat-font-v0.6/subsets/ZutatSans-Regular-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+
+      :root {
+        font-family: "Zutat Sans QA", sans-serif;
+        color: #11120f;
+        background: #f1f0eb;
+        font-synthesis: none;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 320px; }
+      main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 56px 0 80px; }
+      header { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px; margin-bottom: 42px; }
+      h1 { margin: 0; font-size: clamp(34px, 6vw, 76px); line-height: .92; letter-spacing: -.045em; font-weight: 500; }
+      .eyebrow { margin: 0 0 10px; color: #4f594d; font: 600 11px/1 "Zutat Sans QA", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+      #status { border: 1px solid #b9bcb4; border-radius: 999px; padding: 9px 13px; font-size: 12px; white-space: nowrap; }
+      #status.pass { color: #244f2a; background: #e4eee1; border-color: #abc0a9; }
+      #status.fail { color: #711d1d; background: #f4dddd; border-color: #d5a5a5; }
+      section { border-top: 1px solid #c8c9c2; padding: 22px 0 34px; }
+      .section-head { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+      h2 { margin: 0; font-size: 16px; font-weight: 600; }
+      .section-note { margin: 0; max-width: 52ch; color: #62655e; font-size: 12px; line-height: 1.45; text-align: right; }
+      .matrix { display: grid; gap: 7px; }
+      .row { display: grid; grid-template-columns: 78px minmax(0, 1fr) 132px; align-items: center; min-height: 48px; border: 1px solid #d0d1ca; background: #f8f7f2; }
+      .meta { padding: 0 12px; color: #6d7069; font: 500 10px/1 "Zutat Sans QA", sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+      .sample { position: relative; min-width: 0; padding: 12px 14px; overflow: hidden; white-space: nowrap; line-height: 1; }
+      .sample::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 11px; border-bottom: 1px solid rgba(191, 44, 44, .3); pointer-events: none; }
+      .sample span { position: relative; z-index: 1; }
+      .metric { padding: 0 12px; color: #5b5e57; text-align: right; font: 400 10px/1.2 ui-monospace, monospace; }
+      .ui-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+      .card { min-width: 0; padding: 18px; border: 1px solid #d0d1ca; background: #faf9f5; }
+      .card-label { margin-bottom: 18px; color: #656861; font-size: 11px; }
+      .nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; font-weight: 500; }
+      .badge { padding: 5px 8px; border-radius: 999px; background: #e4e7df; font-size: 10px; }
+      .button { display: inline-flex; align-items: center; min-height: 32px; margin-top: 12px; padding: 0 12px; border-radius: 7px; background: #151713; color: white; font-size: 12px; font-weight: 600; }
+      .numeric { margin-top: 12px; font-size: 14px; font-variant-numeric: tabular-nums; }
+      .subset-proof { font-family: "Zutat Sans Latin QA", sans-serif; }
+      #checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 18px; margin: 0; padding: 0; list-style: none; }
+      #checks li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid #d9dad4; font-size: 11px; }
+      #checks .ok { color: #2f6335; }
+      #checks .bad { color: #8a2424; }
+      .measure { position: fixed; left: -10000px; top: 0; visibility: hidden; white-space: nowrap; }
+      @media (max-width: 720px) {
+        main { width: min(100% - 24px, 560px); padding-top: 32px; }
+        header { grid-template-columns: 1fr; align-items: start; }
+        #status { justify-self: start; }
+        .section-head { display: block; }
+        .section-note { margin-top: 8px; text-align: left; }
+        .row { grid-template-columns: 58px minmax(0, 1fr); }
+        .metric { display: none; }
+        .sample { padding-inline: 10px; }
+        .ui-grid { grid-template-columns: 1fr; }
+        #checks { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <p class="eyebrow">Automated browser proof · V0.6</p>
+          <h1>Small UI<br />Quality Assurance</h1>
+        </div>
+        <div id="status">Tests laufen …</div>
+      </header>
+
+      <section>
+        <div class="section-head">
+          <h2>Rasterisierte UI-Größen</h2>
+          <p class="section-note">Die rote Linie macht Baseline-Ausreißer sichtbar. Gemessen werden zusätzlich die tatsächlichen Glyphenbegrenzungen.</p>
+        </div>
+        <div id="matrix" class="matrix"></div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Produktkontext</h2>
+          <p class="section-note">Navigation, Status, Zahlen und deutsche Sonderzeichen in realistischen Komponenten.</p>
+        </div>
+        <div class="ui-grid">
+          <div class="card">
+            <div class="card-label">Navigation · 12 px / 500</div>
+            <div class="nav"><span>Übersicht</span><span>Projekte</span><span class="badge">Neu</span></div>
+            <div class="button">Änderungen speichern</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Zahlen · 14 px / tabular</div>
+            <div class="numeric">00:00:00&nbsp;&nbsp; 1.247,90 €</div>
+            <div class="numeric">72 / 100&nbsp;&nbsp;&nbsp; +18,42 %</div>
+          </div>
+          <div class="card subset-proof">
+            <div class="card-label">Latin subset · 12 px / 400</div>
+            <div>Größe, Straße, Æther, ẞ</div>
+            <div>Präzision • Λ / λ • 〃</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Automatische Checks</h2>
+          <p class="section-note">Playwright stoppt den Testlauf, sobald ein Messwert außerhalb der Toleranz liegt.</p>
+        </div>
+        <ul id="checks"></ul>
+      </section>
+    </main>
+    <div id="measure" class="measure" aria-hidden="true"></div>
+
+    <script>
+      const sizes = [10, 11, 12, 13, 14, 16, 18];
+      const weights = [400, 500, 600, 700];
+      const samples = {
+        400: "minimum · Navigation · 00:00",
+        500: "Präzise Räume · 12 Produkte",
+        600: "Status: Veröffentlichung bereit",
+        700: "Grace under pressure · 72%",
+      };
+      const checks = [];
+      const addCheck = (name, pass, detail) => checks.push({ name, pass, detail });
+
+      function canvasMetrics(text, size, weight, family = "Zutat Sans QA") {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        context.fontKerning = "normal";
+        context.font = `${weight} ${size}px "${family}"`;
+        const metric = context.measureText(text);
+        return {
+          width: metric.width,
+          ascent: metric.actualBoundingBoxAscent,
+          descent: metric.actualBoundingBoxDescent,
+        };
+      }
+
+      function domWidth(text, size, weight, features = "normal") {
+        const element = document.createElement("span");
+        element.style.cssText = `font: ${weight} ${size}px/1 "Zutat Sans QA"; font-variant-numeric: ${features};`;
+        element.textContent = text;
+        document.querySelector("#measure").append(element);
+        const width = element.getBoundingClientRect().width;
+        element.remove();
+        return width;
+      }
+
+      async function run() {
+        await Promise.all(weights.map((weight) => document.fonts.load(`${weight} 18px "Zutat Sans QA"`, "minimum 0123456789")));
+        await document.fonts.load(`400 18px "Zutat Sans Latin QA"`, "Größe Straße Æ ẞ Λ λ 〃");
+
+        for (const weight of weights) {
+          addCheck(`Font ${weight} geladen`, document.fonts.check(`${weight} 16px "Zutat Sans QA"`), "document.fonts");
+        }
+        addCheck("Latin subset geladen", document.fonts.check(`400 16px "Zutat Sans Latin QA"`), "document.fonts");
+
+        const matrix = document.querySelector("#matrix");
+        for (const weight of weights) {
+          for (const size of sizes) {
+            const glyphs = ["i", "m", "n", "u"] .map((char) => canvasMetrics(char, size, weight));
+            const descents = glyphs.map((item) => item.descent);
+            const spread = Math.max(...descents) - Math.min(...descents);
+            addCheck(`${weight} / ${size}px Baseline`, spread <= 0.35, `Δ ${spread.toFixed(3)} px`);
+
+            const row = document.createElement("div");
+            row.className = "row";
+            row.innerHTML = `<div class="meta">${weight} · ${size}px</div><div class="sample" style="font-size:${size}px;font-weight:${weight}"><span>${samples[weight]}</span></div><div class="metric">baseline Δ ${spread.toFixed(3)} px</div>`;
+            matrix.append(row);
+          }
+        }
+
+        for (const weight of weights) {
+          const zeroes = domWidth("000000", 16, weight, "tabular-nums");
+          const mixed = domWidth("123456", 16, weight, "tabular-nums");
+          const difference = Math.abs(zeroes - mixed);
+          addCheck(`${weight} tabular figures`, difference <= 0.05, `Δ ${difference.toFixed(3)} px`);
+        }
+
+        const subsetText = "Größe Straße Æther ẞ • Λ λ 〃";
+        const subsetMetric = canvasMetrics(subsetText, 14, 400, "Zutat Sans Latin QA");
+        addCheck("Latin subset messbar", subsetMetric.width > 100, `${subsetMetric.width.toFixed(2)} px`);
+
+        // Timers also complete in throttled/background tabs used by collaborative QA.
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        const overflowing = [...document.querySelectorAll(".sample")].filter((element) => element.scrollWidth > element.clientWidth + 1);
+        addCheck("Keine Sample-Überläufe", overflowing.length === 0, `${overflowing.length} Elemente`);
+
+        const list = document.querySelector("#checks");
+        for (const check of checks) {
+          const item = document.createElement("li");
+          item.innerHTML = `<span>${check.name}</span><span class="${check.pass ? "ok" : "bad"}">${check.pass ? "PASS" : "FAIL"} · ${check.detail}</span>`;
+          list.append(item);
+        }
+
+        const failures = checks.filter((check) => !check.pass);
+        const status = document.querySelector("#status");
+        status.textContent = failures.length ? `${failures.length} Checks fehlgeschlagen` : `${checks.length} Checks bestanden`;
+        status.className = failures.length ? "fail" : "pass";
+        window.__zutatQa = { complete: true, checks, failures };
+      }
+
+      run().catch((error) => {
+        window.__zutatQa = { complete: true, checks, failures: [{ name: "Runtime", pass: false, detail: error.message }] };
+        const status = document.querySelector("#status");
+        status.textContent = error.message;
+        status.className = "fail";
+        console.error(error);
+      });
+    </script>
+  </body>
+</html>

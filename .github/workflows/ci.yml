@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  font-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: make build validate package posters fontbakery
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: qa/browser/package-lock.json
+      - run: npx --yes publint packages/zutat-font
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zutat-sans-build
+          path: |
+            build/zutat-font-v0.6
+            packages/zutat-font
+            posters/ZutatSans-Poster-*.svg
+            reports/ZutatSans-v0.6-FontBakery*.html
+
+  browser-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: make build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: qa/browser/package-lock.json
+      - run: npm ci
+        working-directory: qa/browser
+      - run: npx playwright install --with-deps chromium
+        working-directory: qa/browser
+      - run: npx playwright test --project=chromium-desktop --grep-invert "visual regression"
+        working-directory: qa/browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-qa
+          path: reports/playwright

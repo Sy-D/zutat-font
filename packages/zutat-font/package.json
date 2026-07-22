@@ -1,0 +1,75 @@
+{
+  "name": "zutat-font",
+  "version": "0.6.0",
+  "description": "Zutat Sans \u2014 quiet authority and editorial precision for digital products and brands.",
+  "type": "module",
+  "types": "./font/sans.d.ts",
+  "style": "./style.css",
+  "exports": {
+    ".": {
+      "types": "./font/sans.d.ts",
+      "default": "./font/sans.js"
+    },
+    "./font/sans": {
+      "types": "./font/sans.d.ts",
+      "default": "./font/sans.js"
+    },
+    "./font/sans-latin": {
+      "types": "./font/sans-latin.d.ts",
+      "default": "./font/sans-latin.js"
+    },
+    "./style.css": "./style.css",
+    "./style-latin.css": "./style-latin.css",
+    "./files/*": "./files/*"
+  },
+  "files": [
+    "font",
+    "files",
+    "style.css",
+    "style-latin.css",
+    "README.md",
+    "LICENSE.txt",
+    "NOTICE.md"
+  ],
+  "sideEffects": [
+    "./style.css",
+    "./style-latin.css"
+  ],
+  "author": "Simon Doba",
+  "contributors": [
+    "Vercel",
+    "basement.studio",
+    "Geist contributors"
+  ],
+  "license": "OFL-1.1",
+  "homepage": "https://github.com/Sy-D/zutat-font#readme",
+  "bugs": {
+    "url": "https://github.com/Sy-D/zutat-font/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sy-D/zutat-font.git",
+    "directory": "packages/zutat-font"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "peerDependencies": {
+    "next": ">=13.2.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "keywords": [
+    "font",
+    "sans-serif",
+    "typeface",
+    "webfont",
+    "woff2",
+    "next.js",
+    "next-font",
+    "typography",
+    "zutat-font"
+  ]
+}

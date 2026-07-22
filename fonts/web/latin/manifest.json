@@ -1,0 +1,60 @@
+{
+  "family": "Zutat Sans",
+  "version": "0.6.0",
+  "profile": "latin-web",
+  "requestedUnicodeRanges": [
+    "U+0000-00FF",
+    "U+0100-024F",
+    "U+02B0-02FF",
+    "U+0300-036F",
+    "U+1D00-1DBF",
+    "U+1E00-1EFF",
+    "U+2000-206F",
+    "U+2070-209F",
+    "U+20A0-20CF",
+    "U+2100-214F",
+    "U+2190-21FF",
+    "U+2200-22FF",
+    "U+2500-25FF",
+    "U+FB00-FB06",
+    "U+039B",
+    "U+03BB",
+    "U+3003",
+    "U+FEFF",
+    "U+FFFD"
+  ],
+  "files": [
+    {
+      "file": "ZutatSans-Regular-latin.woff2",
+      "bytes": 47980,
+      "fullBytes": 66116,
+      "reductionPercent": 27.4,
+      "encodedCodepoints": 555,
+      "sha256": "c048fcc62c143a198e62e997c13db2e8f0be13b0024ef52de6baed79dec1db7c"
+    },
+    {
+      "file": "ZutatSans-Medium-latin.woff2",
+      "bytes": 48308,
+      "fullBytes": 66920,
+      "reductionPercent": 27.8,
+      "encodedCodepoints": 555,
+      "sha256": "0555235ac3262cc880f0e5e08b33afc1617b063801175b33e39015a432100c9d"
+    },
+    {
+      "file": "ZutatSans-SemiBold-latin.woff2",
+      "bytes": 49316,
+      "fullBytes": 67848,
+      "reductionPercent": 27.3,
+      "encodedCodepoints": 555,
+      "sha256": "2c41fb3edbd475d7ea66bf6cafebac72e8236e99896a473df43afd5f0c3f1cc3"
+    },
+    {
+      "file": "ZutatSans-Bold-latin.woff2",
+      "bytes": 49572,
+      "fullBytes": 68336,
+      "reductionPercent": 27.5,
+      "encodedCodepoints": 555,
+      "sha256": "368a8c9704966023a1a8b08b29501adece980c11b305615a0ef076c5ece61794"
+    }
+  ]
+}

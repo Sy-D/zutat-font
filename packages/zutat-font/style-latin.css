@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "Zutat Sans";
+  src: url("./files/subsets/ZutatSans-Regular-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+02B0-036F, U+039B, U+03BB, U+1D00-1DBF, U+1E00-1EFF, U+2000-22FF, U+2500-25FF, U+3003, U+FB00-FB06, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Zutat Sans";
+  src: url("./files/subsets/ZutatSans-Medium-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+02B0-036F, U+039B, U+03BB, U+1D00-1DBF, U+1E00-1EFF, U+2000-22FF, U+2500-25FF, U+3003, U+FB00-FB06, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Zutat Sans";
+  src: url("./files/subsets/ZutatSans-SemiBold-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+02B0-036F, U+039B, U+03BB, U+1D00-1DBF, U+1E00-1EFF, U+2000-22FF, U+2500-25FF, U+3003, U+FB00-FB06, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Zutat Sans";
+  src: url("./files/subsets/ZutatSans-Bold-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+02B0-036F, U+039B, U+03BB, U+1D00-1DBF, U+1E00-1EFF, U+2000-22FF, U+2500-25FF, U+3003, U+FB00-FB06, U+FEFF, U+FFFD;
+}
+
+:root {
+  --font-zutat: "Zutat Sans", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}

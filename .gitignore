@@ -1,0 +1,14 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+node_modules/
+/build/
+/posters/
+/specimens/
+/reports/
+/releases/
+test-results/
+playwright-report/
+*.tgz
+*.zip

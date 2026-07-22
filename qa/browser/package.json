@@ -1,0 +1,14 @@
+{
+  "name": "zutat-font-browser-qa",
+  "version": "0.6.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:update": "playwright test --update-snapshots",
+    "report": "playwright show-report ../../reports/playwright/html"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.61.1"
+  }
+}
