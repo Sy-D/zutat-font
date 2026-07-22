@@ -33,6 +33,10 @@ For a smaller Latin-only payload, use `zutat-font/font/sans-latin` and
 
 For Next.js versions below 15, add `transpilePackages: ["zutat-font"]` to `next.config.js` if your build reports an ESM loader error.
 
+`next` is intentionally not installed by this package. The JavaScript font
+exports are for applications that already use Next.js; CSS-only consumers can
+use the stylesheet exports without pulling in the Next.js dependency tree.
+
 ## Plain CSS
 
 ```js

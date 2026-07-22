@@ -1,6 +1,6 @@
 {
   "name": "zutat-font",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Zutat Sans \u2014 quiet authority and editorial precision for digital products and brands.",
   "type": "module",
   "types": "./font/sans.d.ts",
@@ -53,9 +53,6 @@
   },
   "engines": {
     "node": ">=18.18.0"
-  },
-  "peerDependencies": {
-    "next": ">=13.2.0"
   },
   "publishConfig": {
     "access": "public",

@@ -1,4 +1,8 @@
-import type { NextFontWithVariable } from "next/dist/compiled/@next/font";
+export interface ZutatFontWithVariable {
+  className: string;
+  style: { fontFamily: string; fontWeight?: number; fontStyle?: string };
+  variable: string;
+}
 
-export declare const ZutatSans: NextFontWithVariable;
+export declare const ZutatSans: ZutatFontWithVariable;
 export default ZutatSans;

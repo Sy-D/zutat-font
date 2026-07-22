@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "build" / "zutat-font-v0.6"
+RELEASE_FONTS = ROOT / "fonts"
 OUT = ROOT / "packages" / "zutat-font"
 STYLES = ("Regular", "Medium", "SemiBold", "Bold")
 
@@ -20,17 +21,28 @@ def main() -> None:
     (OUT / "files").mkdir()
     (OUT / "files" / "subsets").mkdir()
 
+    # A standalone release repository already contains reviewed, checksummed
+    # binaries under fonts/. Reuse those exact files instead of producing
+    # byte-different WOFF2 output during npm packaging. The development
+    # workspace falls back to the current build directory.
+    full_source = RELEASE_FONTS / "woff2" if RELEASE_FONTS.exists() else SOURCE
+    subset_source = (
+        RELEASE_FONTS / "web" / "latin"
+        if RELEASE_FONTS.exists()
+        else SOURCE / "subsets"
+    )
+
     for style in STYLES:
-        shutil.copy2(SOURCE / f"ZutatSans-{style}.woff2", OUT / "files")
+        shutil.copy2(full_source / f"ZutatSans-{style}.woff2", OUT / "files")
         shutil.copy2(
-            SOURCE / "subsets" / f"ZutatSans-{style}-latin.woff2",
+            subset_source / f"ZutatSans-{style}-latin.woff2",
             OUT / "files" / "subsets",
         )
     shutil.copy2(SOURCE / "OFL-1.1.txt", OUT / "LICENSE.txt")
 
     package = {
         "name": "zutat-font",
-        "version": "0.6.0",
+        "version": "0.6.1",
         "description": "Zutat Sans — quiet authority and editorial precision for digital products and brands.",
         "type": "module",
         "types": "./font/sans.d.ts",
@@ -69,7 +81,6 @@ def main() -> None:
             "directory": "packages/zutat-font",
         },
         "engines": {"node": ">=18.18.0"},
-        "peerDependencies": {"next": ">=13.2.0"},
         "publishConfig": {"access": "public", "provenance": True},
         "keywords": [
             "font",
@@ -137,15 +148,23 @@ export const ZutatSansLatin = localFont({
 export default ZutatSansLatin;
 ''', encoding="utf-8")
 
-    (OUT / "font" / "sans.d.ts").write_text('''import type { NextFontWithVariable } from "next/dist/compiled/@next/font";
+    (OUT / "font" / "sans.d.ts").write_text('''export interface ZutatFontWithVariable {
+  className: string;
+  style: { fontFamily: string; fontWeight?: number; fontStyle?: string };
+  variable: string;
+}
 
-export declare const ZutatSans: NextFontWithVariable;
+export declare const ZutatSans: ZutatFontWithVariable;
 export default ZutatSans;
 ''', encoding="utf-8")
 
-    (OUT / "font" / "sans-latin.d.ts").write_text('''import type { NextFontWithVariable } from "next/dist/compiled/@next/font";
+    (OUT / "font" / "sans-latin.d.ts").write_text('''export interface ZutatFontWithVariable {
+  className: string;
+  style: { fontFamily: string; fontWeight?: number; fontStyle?: string };
+  variable: string;
+}
 
-export declare const ZutatSansLatin: NextFontWithVariable;
+export declare const ZutatSansLatin: ZutatFontWithVariable;
 export default ZutatSansLatin;
 ''', encoding="utf-8")
 
@@ -238,6 +257,10 @@ For a smaller Latin-only payload, use `zutat-font/font/sans-latin` and
 `ZutatSansLatin`. The complete family remains available through `font/sans`.
 
 For Next.js versions below 15, add `transpilePackages: ["zutat-font"]` to `next.config.js` if your build reports an ESM loader error.
+
+`next` is intentionally not installed by this package. The JavaScript font
+exports are for applications that already use Next.js; CSS-only consumers can
+use the stylesheet exports without pulling in the Next.js dependency tree.
 
 ## Plain CSS
 
