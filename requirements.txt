@@ -1,6 +1,6 @@
 fonttools[woff]==4.63.0
 ttfautohint-py==0.6.1
 uharfbuzz==0.55.0
-CairoSVG==2.9.0
-pillow==12.3.0
+CairoSVG==2.9.1
+pillow==13.0.0
 fontbakery==1.1.0
